@@ -3,7 +3,8 @@ from aiogram.types import Message
 
 
 async def user_start(message: Message):
-    await message.reply("Hello, user!")
+    await message.reply(f"Hello, {message.from_user.full_name}!")
+    await message.answer(f'User id = {message.from_user.id}')
 
 
 def register_user(dp: Dispatcher):

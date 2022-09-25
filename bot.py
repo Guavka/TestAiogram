@@ -1,18 +1,30 @@
+# импорт библиотеки для поддержки асинхронности
 import asyncio
+# импорт библиотеки для логирования происходящего (красиво пишет в консоль)
 import logging
 
+# импорт для работы бота и машины состояний
 from aiogram import Bot, Dispatcher
 from aiogram.contrib.fsm_storage.memory import MemoryStorage
 from aiogram.contrib.fsm_storage.redis import RedisStorage2
 
+# импорт настроек
 from tgbot.config import load_config
+
+# импорт фильтров
 from tgbot.filters.admin import AdminFilter
+
+# импорт хендлеров
 from tgbot.handlers.admin import register_admin
 from tgbot.handlers.echo import register_echo
 from tgbot.handlers.user import register_user
+
+# импорт middleware
 from tgbot.middlewares.environment import EnvironmentMiddleware
 
 logger = logging.getLogger(__name__)
+
+# При развитии проект меняться будут только эти функции  и импорты
 
 
 def register_all_middlewares(dp, config):
@@ -28,6 +40,7 @@ def register_all_handlers(dp):
     register_user(dp)
 
     register_echo(dp)
+# ---------------------
 
 
 async def main():
