@@ -11,13 +11,13 @@ from tgbot.config import Config
 class AdminFilter(BoundFilter):
     key = 'is_main_human' # обязательный ключ для будущего вызова
 
-    def __init__(self, is_admin: typing.Optional[bool] = None):
+    def __init__(self, is_main_human: typing.Optional[bool] = None):
         """Функция-конструктор, вызывает 1 раз при создании объекта
 
         Args:
             is_admin (typing.Optional[bool], optional): _description_. Defaults to None.
         """
-        self.is_admin = is_admin
+        self.is_main_human = is_main_human
 
     async def check(self, obj):
         """Функция фильтрации. !!!Должна называться так же  и принимать такие же параметры!!!
@@ -28,7 +28,7 @@ class AdminFilter(BoundFilter):
         Returns:
             bool: Админ написал или нет
         """
-        if self.is_admin is None:
+        if self.is_main_human is None:
             return False
         config: Config = obj.bot.get('config')
-        return (obj.from_user.id in config.tg_bot.admin_ids) == self.is_admin
+        return (obj.from_user.id in config.tg_bot.admin_ids) == self.is_main_human
