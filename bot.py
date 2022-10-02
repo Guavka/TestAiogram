@@ -61,7 +61,7 @@ async def main():
     register_all_filters(dp)
     register_all_handlers(dp)
     
-    init_base_commands(dp)
+    await init_base_commands(dp)
 
     # start
     try:
