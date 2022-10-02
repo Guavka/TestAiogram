@@ -15,12 +15,14 @@ from tgbot.config import load_config
 from tgbot.filters.admin import AdminFilter
 
 # импорт хендлеров
-from tgbot.handlers.admin import register_admin
-from tgbot.handlers.echo import register_echo
-from tgbot.handlers.user import register_user
+from tgbot.handlers.private.admin import register_admin as admin_private
+from tgbot.handlers.private.user import register_user as user_private
 
 # импорт middleware
 from tgbot.middlewares.environment import EnvironmentMiddleware
+
+# импорт комманд
+from tgbot.misc.utils.commands import init_base_commands
 
 logger = logging.getLogger(__name__)
 
@@ -36,10 +38,8 @@ def register_all_filters(dp):
 
 
 def register_all_handlers(dp):
-    register_admin(dp)
-    register_user(dp)
-
-    register_echo(dp)
+    admin_private(dp)
+    user_private(dp)
 # ---------------------
 
 
@@ -60,6 +60,8 @@ async def main():
     register_all_middlewares(dp, config)
     register_all_filters(dp)
     register_all_handlers(dp)
+    
+    init_base_commands(dp)
 
     # start
     try:
